@@ -113,7 +113,7 @@
       prevLimit = limit;
     }
     tax = Math.max(0, tax - childCredit);
-    const effective = taxable > 0 ? (tax / gross * 100) : 0;
+    const effective = (gross > 0 && tax > 0) ? (tax / gross * 100) : 0;
     const takeHome = gross - pretax - tax;
 
     const fmt = v => '$' + v.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
