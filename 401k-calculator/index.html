@@ -102,7 +102,12 @@
       const empContrib = salary * matchPct;
       totalMyContrib += myContrib;
       totalEmployer += empContrib;
-      balance = (balance + myContrib + empContrib) * (1 + returnRate);
+      // Monthly contributions throughout the year
+      const monthlyReturn = Math.pow(1 + returnRate, 1/12) - 1;
+      const monthlyContrib = (myContrib + empContrib) / 12;
+      for (let m = 0; m < 12; m++) {
+        balance = (balance + monthlyContrib) * (1 + monthlyReturn);
+      }
       salary *= (1 + raiseRate);
     }
 
