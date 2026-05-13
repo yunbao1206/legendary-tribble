@@ -194,16 +194,14 @@
         }
         totalContributions += monthly * 12;
       } else {
-        // Generic compounding
-        const periodRate = annualRate / freq;
-        const periodsPerYear = freq;
-        const monthsPerPeriod = 12 / periodsPerYear;
-        for (let p = 0; p < periodsPerYear; p++) {
-          const interest = balance * periodRate;
+        // Generic compounding - use monthly sub-periods for accuracy
+        const monthlyRate = Math.pow(1 + annualRate / freq, 1 / (12 / freq)) - 1;
+        for (let m = 0; m < 12; m++) {
+          const interest = balance * monthlyRate;
           yearInterest += interest;
-          balance += interest;
-          totalContributions += monthly * monthsPerPeriod;
+          balance += interest + monthly;
         }
+        totalContributions += monthly * 12;
       }
 
       tbody += `<tr><td>Year ${y}</td><td>${fmt(totalContributions)}</td><td>${fmt(yearInterest)}</td><td>${fmt(balance)}</td></tr>`;
