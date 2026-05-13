@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compound Interest Calculator - See How Your Money Grows</title>
+  <meta name="description" content="Free compound interest calculator. See how your savings and investments grow over time with regular contributions and compound interest.">
+  <meta name="keywords" content="compound interest calculator, investment calculator, savings calculator, interest calculator">
+  <link rel="canonical" href="https://calc.wiseclick.site/compound-interest-calculator/">
+  <meta property="og:title" content="Free Compound Interest Calculator - Investment Growth">
+  <meta property="og:description" content="See how your savings and investments grow over time with the power of compound interest.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="../css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Compound Interest Calculator",
+    "description": "Free online compound interest calculator with regular contributions",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        FinanceToolHub
+      </a>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/mortgage-calculator/">Mortgage</a></li>
+        <li><a href="/loan-calculator/">Loan</a></li>
+        <li><a href="/compound-interest-calculator/" class="active">Investment</a></li>
+        <li><a href="/auto-loan-calculator/">Auto Loan</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <nav class="breadcrumb">
+      <a href="/">Home</a> / <span>Compound Interest Calculator</span>
+    </nav>
+
+    <div class="calc-page">
+      <h1>Compound Interest Calculator</h1>
+      <p class="subtitle">See how your savings and investments grow over time with the power of compound interest.</p>
+
+      <div class="calc-tool">
+        <form class="calc-form" id="ci-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="initial-investment">Initial Investment ($)</label>
+            <input type="number" id="initial-investment" value="10000" min="0" step="100">
+          </div>
+          <div class="form-group">
+            <label for="monthly-contribution">Monthly Contribution ($)</label>
+            <input type="number" id="monthly-contribution" value="500" min="0" step="50">
+          </div>
+          <div class="form-group">
+            <label for="annual-return">Annual Return Rate (%)</label>
+            <input type="number" id="annual-return" value="7" min="0" max="50" step="0.1">
+          </div>
+          <div class="form-group">
+            <label for="investment-years">Time Period (years)</label>
+            <input type="number" id="investment-years" value="20" min="1" max="50" step="1">
+          </div>
+          <div class="form-group">
+            <label for="compound-freq">Compound Frequency</label>
+            <select id="compound-freq">
+              <option value="12" selected>Monthly</option>
+              <option value="4">Quarterly</option>
+              <option value="2">Semi-annually</option>
+              <option value="1">Annually</option>
+            </select>
+          </div>
+          <button type="button" class="btn-calculate" onclick="calculateCI()">Calculate</button>
+        </form>
+
+        <div class="calc-results" id="results">
+          <div class="result-highlight">
+            <div class="label">Future Value</div>
+            <div class="value" id="future-value">$0</div>
+          </div>
+          <div class="result-details">
+            <div class="result-item">
+              <div class="label">Total Contributions</div>
+              <div class="value" id="total-contributions">$0</div>
+            </div>
+            <div class="result-item">
+              <div class="label">Total Interest Earned</div>
+              <div class="value" id="total-interest-earned">$0</div>
+            </div>
+            <div class="result-item">
+              <div class="label">Initial Investment Grew To</div>
+              <div class="value" id="initial-grew">$0</div>
+            </div>
+            <div class="result-item">
+              <div class="label">Return on Investment</div>
+              <div class="value" id="roi">0%</div>
+            </div>
+          </div>
+          <button class="amort-toggle" onclick="toggleGrowthTable()">Show Year-by-Year Growth</button>
+          <div class="amort-table-wrapper" id="growth-wrapper">
+            <table class="amort-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Contributions</th>
+                  <th>Interest Earned</th>
+                  <th>Balance</th>
+                </tr>
+              </thead>
+              <tbody id="growth-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="seo-content">
+        <div class="seo-block">
+          <h2>What Is Compound Interest?</h2>
+          <p>Compound interest is interest earned on both your original investment and the interest that has already accumulated. Albert Einstein reportedly called it the "eighth wonder of the world."</p>
+          <p><strong>Simple example:</strong> Invest $10,000 at 7% annual return. After 1 year, you have $10,700. After 2 years, you earn 7% on $10,700 (not just $10,000) = $11,449. This snowball effect grows exponentially over time.</p>
+          <h3>The Compound Interest Formula</h3>
+          <p><strong>A = P(1 + r/n)^(nt)</strong></p>
+          <p>Where P = principal, r = annual rate, n = compounds per year, t = years.</p>
+        </div>
+        <div class="seo-block">
+          <h2>Why Starting Early Matters</h2>
+          <ul>
+            <li><strong>Start at 25</strong> — Invest $500/month at 7% for 40 years → ~$1.2M</li>
+            <li><strong>Start at 35</strong> — Same contributions for 30 years → ~$567K</li>
+            <li><strong>Start at 45</strong> — Same contributions for 20 years → ~$247K</li>
+          </ul>
+          <p>Starting 10 years earlier nearly doubles your result — even though you only contribute 33% more. That's the power of compound interest.</p>
+        </div>
+        <div class="seo-block full-width">
+          <h2>Frequently Asked Questions</h2>
+          <h3>What is a good annual return rate?</h3>
+          <p>The S&P 500 has historically returned about 10% per year (before inflation). After inflation, the real return is about 7%. For a conservative portfolio, 4-5% is reasonable.</p>
+          <h3>How often should interest compound?</h3>
+          <p>More frequent compounding = more growth. Monthly compounding yields slightly more than annual compounding. Most savings accounts compound daily or monthly.</p>
+          <h3>Should I invest a lump sum or contribute monthly?</h3>
+          <p>Dollar-cost averaging (monthly contributions) reduces risk by spreading purchases over time. But a lump sum invested earlier benefits from more time compounding. Use this calculator to compare both strategies.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="/about/">About</a></li>
+        <li><a href="/privacy/">Privacy Policy</a></li>
+        <li><a href="/terms/">Terms of Service</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 FinanceToolHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+  function calculateCI() {
+    const principal = parseFloat(document.getElementById('initial-investment').value) || 0;
+    const monthly = parseFloat(document.getElementById('monthly-contribution').value) || 0;
+    const annualRate = parseFloat(document.getElementById('annual-return').value) / 100;
+    const years = parseInt(document.getElementById('investment-years').value);
+    const freq = parseInt(document.getElementById('compound-freq').value);
+
+    const fmt = v => '$' + v.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+    // Year-by-year calculation
+    let balance = principal;
+    let tbody = '';
+    let totalContributions = principal;
+
+    for (let y = 1; y <= years; y++) {
+      const yearStartBalance = balance;
+      let yearInterest = 0;
+
+      if (freq === 12) {
+        // Monthly compounding with monthly contributions
+        const monthlyRate = annualRate / 12;
+        for (let m = 0; m < 12; m++) {
+          const interest = balance * monthlyRate;
+          yearInterest += interest;
+          balance += interest + monthly;
+        }
+        totalContributions += monthly * 12;
+      } else {
+        // Generic compounding
+        const periodRate = annualRate / freq;
+        const periodsPerYear = freq;
+        const monthsPerPeriod = 12 / periodsPerYear;
+        for (let p = 0; p < periodsPerYear; p++) {
+          const interest = balance * periodRate;
+          yearInterest += interest;
+          balance += interest;
+          totalContributions += monthly * monthsPerPeriod;
+        }
+      }
+
+      tbody += `<tr><td>Year ${y}</td><td>${fmt(totalContributions)}</td><td>${fmt(yearInterest)}</td><td>${fmt(balance)}</td></tr>`;
+    }
+
+    const totalInterest = balance - totalContributions;
+    const roi = totalContributions > 0 ? ((balance - totalContributions) / totalContributions * 100).toFixed(1) : '0';
+
+    // Initial investment growth (without contributions)
+    const initialGrew = principal * Math.pow(1 + annualRate / freq, freq * years);
+
+    document.getElementById('future-value').textContent = fmt(balance);
+    document.getElementById('total-contributions').textContent = fmt(totalContributions);
+    document.getElementById('total-interest-earned').textContent = fmt(totalInterest);
+    document.getElementById('initial-grew').textContent = fmt(initialGrew);
+    document.getElementById('roi').textContent = roi + '%';
+    document.getElementById('growth-body').innerHTML = tbody;
+    document.getElementById('results').classList.add('visible');
+  }
+
+  function toggleGrowthTable() {
+    document.getElementById('growth-wrapper').classList.toggle('visible');
+  }
+
+  calculateCI();
+  </script>
+
+</body>
+</html>
