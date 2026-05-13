@@ -135,7 +135,7 @@
     const taxable = Math.max(0, salary - annualPretax - (filing === 'married' ? 30000 : 15000));
 
     const fedTaxAnnual = calcFedTax(taxable, filing);
-    const stateTaxAnnual = salary * (STATE_TAX[state] || 0);
+    const stateTaxAnnual = (salary - annualPretax) * (STATE_TAX[state] || 0);
     const ssTax = Math.min(salary, 176100) * 0.062;
     const medicareTax = salary * 0.0145 + Math.max(0, salary - 200000) * 0.009;
     const totalTax = fedTaxAnnual + stateTaxAnnual + ssTax + medicareTax;
