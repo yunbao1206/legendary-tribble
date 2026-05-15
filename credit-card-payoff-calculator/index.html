@@ -110,8 +110,16 @@
             </div>
           </div>
         </div>
+        <div class="cta-section" id="cta-section">
+          <div class="cta-card">
+            <div class="cta-icon">💳</div>
+            <h3>Find a Better Credit Card</h3>
+            <p>Compare balance transfer cards with 0% APR to pay off debt faster and save on interest.</p>
+            <a href="#" class="cta-button" target="_blank" rel="noopener sponsored">Compare Credit Cards</a>
+            <p class="affiliate-disclosure">We may earn a referral fee if you apply for a card. This does not affect our calculator results.</p>
+          </div>
+        </div>
       </div>
-
       <div class="seo-content">
         <div class="seo-block">
           <h2>How Credit Card Interest Works</h2>
@@ -212,6 +220,14 @@
 
   calculateCC();
   </script>
+
+
+  <div class="cookie-banner" id="cookie-banner">
+    <p>We use cookies for analytics and advertising. <a href="/privacy/">Learn more</a>. You can accept or reject non-essential cookies.</p>
+    <button class="cookie-btn" onclick="document.getElementById('cookie-banner').classList.add('hidden');localStorage.setItem('cookie-consent','1')">Accept</button>
+    <button class="cookie-btn cookie-reject" onclick="document.getElementById('cookie-banner').classList.add('hidden');localStorage.setItem('cookie-consent','0')">Reject</button>
+  </div>
+  <script>if(localStorage.getItem('cookie-consent')!==null)document.getElementById('cookie-banner').classList.add('hidden');</script>
 
 </body>
 </html>
