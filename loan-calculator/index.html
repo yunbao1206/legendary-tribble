@@ -117,8 +117,16 @@
             </div>
           </div>
         </div>
+        <div class="cta-section" id="cta-section">
+          <div class="cta-card">
+            <div class="cta-icon">💰</div>
+            <h3>Compare Personal Loan Rates</h3>
+            <p>Check your rate from multiple lenders in minutes. No impact on your credit score.</p>
+            <a href="#" class="cta-button" target="_blank" rel="noopener sponsored">Get Pre-qualified Now</a>
+            <p class="affiliate-disclosure">We may earn a referral fee if you apply for a loan. This does not affect our calculator results.</p>
+          </div>
+        </div>
       </div>
-
       <div class="seo-content">
         <div class="seo-block">
           <h2>How to Use This Loan Calculator</h2>
@@ -199,6 +207,14 @@
 
   calculateLoan();
   </script>
+
+
+  <div class="cookie-banner" id="cookie-banner">
+    <p>We use cookies for analytics and advertising. <a href="/privacy/">Learn more</a>. You can accept or reject non-essential cookies.</p>
+    <button class="cookie-btn" onclick="document.getElementById('cookie-banner').classList.add('hidden');localStorage.setItem('cookie-consent','1')">Accept</button>
+    <button class="cookie-btn cookie-reject" onclick="document.getElementById('cookie-banner').classList.add('hidden');localStorage.setItem('cookie-consent','0')">Reject</button>
+  </div>
+  <script>if(localStorage.getItem('cookie-consent')!==null)document.getElementById('cookie-banner').classList.add('hidden');</script>
 
 </body>
 </html>
